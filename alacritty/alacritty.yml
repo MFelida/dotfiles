@@ -1,0 +1,27 @@
+window:
+  padding: 
+    x: 4
+    y: 4
+  opacity: 0.98
+
+font:
+  normal:
+    family: "MesloLGS NF"
+    style: "Regular"
+  bold:
+    family: "MesloLGS NF"
+    style: "Bold"
+  italic:
+    family: "MesloLGS NF"
+    style: "Italic"
+  bold_italic:
+    family: "MesloLGS NF"
+    style: "Bold Italic"
+
+bell:
+  animation: "EaseOutSine"
+  duration: 150
+  color: "#a0a0a0"
+
+mouse:
+  hide_when_typing: true
