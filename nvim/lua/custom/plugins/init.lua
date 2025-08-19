@@ -10,7 +10,7 @@ return {
       default_map = true,
       auto_update = true,
       user = 'mifelida',
-      mail = 'mifelida@student.email.com',
+      mail = 'mifelida@student.codam.nl',
     },
     config = function(_, opts)
       require('codamheader').setup(opts)
