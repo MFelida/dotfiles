@@ -174,10 +174,13 @@ vim.o.confirm = true
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
 -- Map jk to <Esc>
-vim.keymap.set({ 'i', 'v' }, 'jk', '<Esc>')
+vim.keymap.set({ 'i' }, 'jk', '<Esc>')
 
 -- Save with CTRL-s
 vim.keymap.set('n', '<C-s>', '<cmd>write<CR>')
+
+-- Close current buffer
+vim.keymap.set('n', '<leader>x', '<cmd>bn|bd#<CR>')
 
 -- Diagnostic keymaps
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
@@ -997,7 +1000,7 @@ require('lazy').setup({
   -- require 'kickstart.plugins.debug',
   -- require 'kickstart.plugins.indent_line',
   -- require 'kickstart.plugins.lint',
-  -- require 'kickstart.plugins.autopairs',
+  require 'kickstart.plugins.autopairs',
   require 'kickstart.plugins.neo-tree',
   require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
 
