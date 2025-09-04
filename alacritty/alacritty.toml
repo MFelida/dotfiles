@@ -1,3 +1,6 @@
+[env]
+term = "alacritty"
+
 [bell]
 animation = "EaseOutSine"
 color = "#a0a0a0"
