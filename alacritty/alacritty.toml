@@ -1,0 +1,31 @@
+[bell]
+animation = "EaseOutSine"
+color = "#a0a0a0"
+duration = 150
+
+[font.bold]
+family = "MesloLGS Nerd Font Mono"
+style = "Bold"
+
+[font.bold_italic]
+family = "MesloLGS Nerd Font Mono"
+style = "Bold Italic"
+
+[font.italic]
+family = "MesloLGS Nerd Font Mono"
+style = "Italic"
+
+[font.normal]
+family = "MesloLGS Nerd Font Mono"
+style = "Regular"
+
+[mouse]
+hide_when_typing = true
+
+[window]
+opacity = 0.98
+decorations = "None"
+
+[window.padding]
+x = 4
+y = 4
