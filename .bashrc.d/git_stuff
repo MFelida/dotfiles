@@ -1,0 +1,4 @@
+alias gst="git status"
+alias gcmm="git commit -m"
+alias gcma="git commit --amend"
+alias glgg="git log --graph --abbrev"
