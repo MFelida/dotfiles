@@ -1,6 +1,6 @@
 alias l="ls"
-alias ll="ls -lH"
-alias la="ls -laH"
+#alias ll="ls -lH"
+#alias la="ls -laH"
 
 alias t="tmux new-session -A -t main"
 

@@ -1,10 +1,6 @@
 [env]
-term = "alacritty"
-
-[bell]
-animation = "EaseOutSine"
-color = "#a0a0a0"
-duration = 150
+TERM = "alacritty"
+NERD_FONT_ENABLED = ""
 
 [font.bold]
 family = "MesloLGS Nerd Font Mono"

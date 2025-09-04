@@ -23,3 +23,15 @@ if [ -d ~/.bashrc.d ]; then
     done
 fi
 unset rc
+
+PROMPT_END_DEFAULT=${PROMPT_END}
+
+PROMPT_COMMAND+=(\
+	'RET=$?
+	if [ $RET -ne 0 ]; then
+		PROMPT_END=" $(set_ansi ${PROMPT_ERROR_COLOR:-31})[$RET]$(set_ansi 0)";
+	else
+		PROMPT_END=${PROMPT_END_DEFAULT@P};
+	fi
+	unset RET')
+
