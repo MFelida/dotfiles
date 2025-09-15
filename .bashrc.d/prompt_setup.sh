@@ -41,7 +41,7 @@ ${NERD_FONT_ENABLED+$(set_ansi ${PROMPT_GIT_ICON_COLOR:-33})$(set_ansi 0)}\
 ${PROMPT_COLOR:+$(set_ansi ${PROMPT_COLOR@P})}\
 ${PROMPT_DIR_COLOR:+$(set_ansi ${PROMPT_DIR_COLOR@P})}\
 ${PROMPT_GIT_COLOR:+$(set_ansi ${PROMPT_GIT_COLOR@P})}\
-${PROMPT_GIT_BRANCH@P}\
+$(if [ ${#PROMPT_GIT_BRANCH} -gt 19 ]; then echo -n "${PROMPT_GIT_BRANCH:0:17}..."; else echo -n "${PROMPT_GIT_BRANCH}"; fi)\
 }"
 '\
 )
