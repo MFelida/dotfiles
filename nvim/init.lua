@@ -179,10 +179,10 @@ vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 vim.keymap.set({ 'i' }, 'jk', '<Esc>')
 
 -- Save with CTRL-s
-vim.keymap.set('n', '<C-s>', '<cmd>write<CR>')
+vim.keymap.set('n', '<C-s>', '<cmd>write<CR>', { desc = '[S]ave file' })
 
 -- Close current buffer
-vim.keymap.set('n', '<leader>x', '<cmd>bn|bd#<CR>')
+vim.keymap.set('n', '<leader>x', '<cmd>bn|bd#<CR>', { desc = 'Close current buffer' })
 
 -- Diagnostic keymaps
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
