@@ -33,9 +33,18 @@ PROMPT_COMMAND+=(\
 		PROMPT_END=${PROMPT_END_DEFAULT};
 	fi
 	unset RET')
+
+update_git_branch () {
+	if git rev-parse -is-inside-work-tree &> /dev/null; then
+		PROMPT_GIT_BRANCH=$(git branch --show-current 2> /dev/null)
+	else
+		PROMPT_GIT_BRANCH=""
+	fi
+}
+
 # Display git branch
 PROMPT_COMMAND+=(\
-	'PROMPT_GIT_BRANCH=$(git branch --show-current 2>/dev/null)
+'update_git_branch;
 PROMPT_GIT_BRANCH="${PROMPT_GIT_BRANCH:+$(set_ansi 0)\
 ${NERD_FONT_ENABLED+$(set_ansi ${PROMPT_GIT_ICON_COLOR:-33})$(set_ansi 0)}\
 ${PROMPT_COLOR:+$(set_ansi ${PROMPT_COLOR@P})}\
@@ -43,8 +52,7 @@ ${PROMPT_DIR_COLOR:+$(set_ansi ${PROMPT_DIR_COLOR@P})}\
 ${PROMPT_GIT_COLOR:+$(set_ansi ${PROMPT_GIT_COLOR@P})}\
 $(if [ ${#PROMPT_GIT_BRANCH} -gt 19 ]; then echo -n "${PROMPT_GIT_BRANCH:0:17}..."; else echo -n "${PROMPT_GIT_BRANCH}"; fi)\
 }"
-'\
-)
+')
 
 PS1='${PROMPT_START@P}\[\e[0m\]${PROMPT_HIGHLIGHT:+\[\e[${PROMPT_HIGHLIGHT}m\]}${PROMPT_COLOR:+\[\e[${PROMPT_COLOR}m\]}${PROMPT_CONTAINER}${PROMPT_USERHOST:+${PROMPT_USERHOST@P}${PROMPT_SEPARATOR:+\[\e[0m\]${PROMPT_SEPARATOR_COLOR:+\[\e[${PROMPT_SEPARATOR_COLOR}m\]}${PROMPT_SEPARATOR@P}${PROMPT_SEPARATOR_COLOR:+\[\e[0m\]}${PROMPT_HIGHLIGHT:+\[\e[${PROMPT_HIGHLIGHT}m\]}${PROMPT_COLOR:+\[\e[${PROMPT_COLOR}m\]}}}${PROMPT_DIR_COLOR:+\[\e[${PROMPT_DIR_COLOR}m\]}${PROMPT_DIRECTORY@P}${PROMPT_GIT_BRANCH:+${PROMPT_SEPARATOR:+\[\e[0m\]${PROMPT_SEPARATOR_COLOR:+\[\e[${PROMPT_SEPARATOR_COLOR}m\]}${PROMPT_SEPARATOR@P}${PROMPT_SEPARATOR_COLOR:+\[\e[0m\]}${PROMPT_HIGHLIGHT:+\[\e[${PROMPT_HIGHLIGHT}m\]}${PROMPT_OLOR:+\[\e[${PROMPT_COLOR}m\]}${PROMPT_DIR_COLOR:+\[\e[${PROMPT_DIR_COLOR}m\]}}${PROMPT_GIT_COLOR:+\[\e[${PROMPT_GIT_COLOR}m\]}${PROMPT_GIT_BRANCH@P}}\[\e[1m\]${PROMPT_END@P}\$${PROMPT_END:+\[\e[0m\]} '
 
