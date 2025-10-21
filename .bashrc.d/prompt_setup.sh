@@ -24,15 +24,48 @@ PROMPT_ERROR_COLOR="30;41"
 PROMPT_GIT_COLOR="33"
 
 PROMPT_END_DEFAULT=${PROMPT_END}
-# Display exit code if error
-PROMPT_COMMAND+=(\
-	'RET=$?
-	if [ $RET -ne 0 ]; then
-		PROMPT_END=" ${PROMPT_ERROR_COLOR:+$(set_ansi ${PROMPT_ERROR_COLOR})}[$RET]$(set_ansi 0)";
-	else
+
+builtin declare -xa PROMPT_SIGNAL_STRINGS
+PROMPT_SIGNAL_STRINGS=("OOPSIE" "SIGHUP" "SIGINT" "SIGQUIT" "SIGILL"\
+	"SIGTRAP" "SIGABRT" "SIGIOT" "SIGBUS" "SIGFPE" "SIGKILL" "SIGUSR1"\
+	"SIGSEGV" "SIGUSR2" "SIGPIPE" "SIGALRM" "SIGTERM" "SIGSTKFLT"\
+	"SIGCHLD" "SIGCONT" "SIGSTOP" "SIGTSTP" "SIGTTIN" "SIGTTOU" "SIGURG"\
+	"SIGXCPU" "SIGXFSZ" "SIGVTALRM" "SIGPROF" "SIGWINCH" "SIGIO"\
+	"SIGPWR" "SIGSYS" "SIGUNUSED")
+
+_set_prompt_error () {
+	function _is_signal () {
+		if [[ ${1} -gt 128 ]] && [[ $((128 + ${#PROMPT_SIGNAL_STRINGS[@]})) -gt ${1} ]]; then
+			return 0
+		else
+			return 1
+		fi
+	}
+	declare RET
+	RET=${1}
+	if [ ${RET} -eq 0 ]; then
 		PROMPT_END=${PROMPT_END_DEFAULT};
+	elif _is_signal ${RET}; then
+		RET=$((${RET} - 128))
+		PROMPT_END=" ${PROMPT_ERROR_COLOR:+$(set_ansi ${PROMPT_ERROR_COLOR})}[${PROMPT_SIGNAL_STRINGS[${RET}]}]$(set_ansi 0)";
+	else
+		PROMPT_END=" ${PROMPT_ERROR_COLOR:+$(set_ansi ${PROMPT_ERROR_COLOR})}[${RET}]$(set_ansi 0)";
 	fi
-	unset RET')
+}
+
+# Display exit code if error
+PROMPT_COMMAND+=('_set_prompt_error ${?}')
+# PROMPT_COMMAND+=(\
+# 	'RET=$?
+# 	if [ ${RET} -eq 0 ]; then
+# 		PROMPT_END=${PROMPT_END_DEFAULT};
+# 	elif _is_signal ${RET}; then
+# 		RET=$((${RET} - 128))
+# 		PROMPT_END=" ${PROMPT_ERROR_COLOR:+$(set_ansi ${PROMPT_ERROR_COLOR})}[${PROMPT_SIGNAL_STRINGS[${RET}]}]$(set_ansi 0)";
+# 	else
+# 		PROMPT_END=" ${PROMPT_ERROR_COLOR:+$(set_ansi ${PROMPT_ERROR_COLOR})}[${RET}]$(set_ansi 0)";
+# 	fi
+# 	unset RET')
 
 update_git_branch () {
 	if git rev-parse -is-inside-work-tree &> /dev/null; then
