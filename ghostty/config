@@ -20,8 +20,8 @@ keybind = alt+l=goto_split:right
 
 # Cosmetic
 theme = Gruvbox Dark
-
 font-family = MesloLGS Nerd Font Mono
+custom-shader = ~/.config/ghostty/shaders/cursor_blaze.glsl
 
 window-decoration = none
 
