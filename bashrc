@@ -16,6 +16,12 @@ export CDPATH=".:$HOME:$HOME/Projects${CDPATH:+:${CDPATH}}"
 # Uncomment the following line if you don't like systemctl's auto-paging feature:
 # export SYSTEMD_PAGER=
 
+if [[ "${TERM}" == *ghostty* ]]; then
+	if [ -n "${GHOSTTY_RESOURCES_DIR}" ]; then
+	builtin source "${GHOSTTY_RESOURCES_DIR}/shell-integration/bash/ghostty.bash";
+	fi
+fi
+
 if [ -z PROMPT_COMMAND ]; then declare -a PROMPT_COMMAND; fi
 
 # User specific aliases and functions
@@ -44,3 +50,9 @@ fi
 unset __conda_setup
 # <<< conda initialize <<<
 }
+# CUDA toolkit PATH
+export PATH="/usr/local/cuda/bin:$PATH"
+export LD_LIBRARY_PATH="/usr/local/cuda/lib64:$LD_LIBRARY_PATH"
+
+export CC="$(which clang)"
+export CXX="$(which clang++)"

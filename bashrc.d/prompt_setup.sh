@@ -1,0 +1,58 @@
+# prompt_setup.sh
+
+
+declare -Fp set_ansi &> /dev/null
+if [ $? -ne 0 ]; then
+	set_ansi () {
+		echo -n "\[\e[${1}m\]"
+	}
+fi
+
+PROMPT_DIRTRIM=3
+
+PROMPT_SEPARATOR=':'
+PROMPT_START=""
+PROMPT_HIGHLIGHT=""
+PROMPT_USERHOST="\u@\h"
+PROMPT_DIRECTORY="\w"
+PROMPT_END="$(set_ansi 0)"
+
+PROMPT_COLOR="32"
+PROMPT_DIR_COLOR="32"
+PROMPT_SEPARATOR_COLOR="97"
+PROMPT_ERROR_COLOR="30;41"
+PROMPT_GIT_COLOR="33"
+
+PROMPT_END_DEFAULT=${PROMPT_END}
+# Display exit code if error
+PROMPT_COMMAND+=(\
+	'RET=$?
+	if [ $RET -ne 0 ]; then
+		PROMPT_END=" ${PROMPT_ERROR_COLOR:+$(set_ansi ${PROMPT_ERROR_COLOR})}[$RET]$(set_ansi 0)";
+	else
+		PROMPT_END=${PROMPT_END_DEFAULT};
+	fi
+	unset RET')
+
+update_git_branch () {
+	if git rev-parse -is-inside-work-tree &> /dev/null; then
+		PROMPT_GIT_BRANCH=$(git branch --show-current 2> /dev/null)
+	else
+		PROMPT_GIT_BRANCH=""
+	fi
+}
+
+# Display git branch
+PROMPT_COMMAND+=(\
+'update_git_branch;
+PROMPT_GIT_BRANCH="${PROMPT_GIT_BRANCH:+$(set_ansi 0)\
+${NERD_FONT_ENABLED+$(set_ansi ${PROMPT_GIT_ICON_COLOR:-33})$(set_ansi 0)}\
+${PROMPT_COLOR:+$(set_ansi ${PROMPT_COLOR@P})}\
+${PROMPT_DIR_COLOR:+$(set_ansi ${PROMPT_DIR_COLOR@P})}\
+${PROMPT_GIT_COLOR:+$(set_ansi ${PROMPT_GIT_COLOR@P})}\
+$(if [ ${#PROMPT_GIT_BRANCH} -gt 19 ]; then echo -n "${PROMPT_GIT_BRANCH:0:17}..."; else echo -n "${PROMPT_GIT_BRANCH}"; fi)\
+}"
+')
+
+PS1='${PROMPT_START@P}\[\e[0m\]${PROMPT_HIGHLIGHT:+\[\e[${PROMPT_HIGHLIGHT}m\]}${PROMPT_COLOR:+\[\e[${PROMPT_COLOR}m\]}${PROMPT_CONTAINER}${PROMPT_USERHOST:+${PROMPT_USERHOST@P}${PROMPT_SEPARATOR:+\[\e[0m\]${PROMPT_SEPARATOR_COLOR:+\[\e[${PROMPT_SEPARATOR_COLOR}m\]}${PROMPT_SEPARATOR@P}${PROMPT_SEPARATOR_COLOR:+\[\e[0m\]}${PROMPT_HIGHLIGHT:+\[\e[${PROMPT_HIGHLIGHT}m\]}${PROMPT_COLOR:+\[\e[${PROMPT_COLOR}m\]}}}${PROMPT_DIR_COLOR:+\[\e[${PROMPT_DIR_COLOR}m\]}${PROMPT_DIRECTORY@P}${PROMPT_GIT_BRANCH:+${PROMPT_SEPARATOR:+\[\e[0m\]${PROMPT_SEPARATOR_COLOR:+\[\e[${PROMPT_SEPARATOR_COLOR}m\]}${PROMPT_SEPARATOR@P}${PROMPT_SEPARATOR_COLOR:+\[\e[0m\]}${PROMPT_HIGHLIGHT:+\[\e[${PROMPT_HIGHLIGHT}m\]}${PROMPT_OLOR:+\[\e[${PROMPT_COLOR}m\]}${PROMPT_DIR_COLOR:+\[\e[${PROMPT_DIR_COLOR}m\]}}${PROMPT_GIT_COLOR:+\[\e[${PROMPT_GIT_COLOR}m\]}${PROMPT_GIT_BRANCH@P}}\[\e[1m\]${PROMPT_END@P}\$${PROMPT_END:+\[\e[0m\]} '
+
