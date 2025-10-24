@@ -12,4 +12,4 @@ alias lg="lazygit"
 
 alias hexdump="od -A x -t x1z -v "
 
-alias fullgrind="valgrind --show-leak-kinds=all --leak-check=full -s --track-fds=yes "
+alias fullgrind="valgrind --show-leak-kinds=all --leak-check=full -s --track-fds=yes --track-origins=yes "
