@@ -1,6 +1,7 @@
 # Ghostty Config File
 
 shell-integration=bash
+env = NERD_FONT_ENABLED=""
 mouse-hide-while-typing = true
 
 # Keybinds
