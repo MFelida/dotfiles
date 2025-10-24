@@ -67,10 +67,9 @@ update_git_branch () {
 	fi
 	PROMPT_GIT_BRANCH="${PROMPT_GIT_BRANCH:+$(set_ansi 0)\
 ${PROMPT_COLOR:+$(set_ansi ${PROMPT_COLOR@P})}\
-${PROMPT_DIR_COLOR:+$(set_ansi ${PROMPT_DIR_COLOR@P})}\
 ${PROMPT_GIT_COLOR:+$(set_ansi ${PROMPT_GIT_COLOR@P})}\
+${PROMPT_GIT_BRANCH@P}\
 ${NERD_FONT_ENABLED+$(set_ansi ${PROMPT_GIT_ICON_COLOR:-33})$(set_ansi 0)}\
-${PROMPT_GIT_BRANCH}\
 }"
 }
 PROMPT_COMMAND+=('update_git_branch;')

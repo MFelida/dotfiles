@@ -19,7 +19,6 @@ function norminette ()
 		command norminette $@
 		return
 	fi
-	local unknown_opt=false show_usage=false use_grep=false OPTIND
 	_usage () {
 		echo "Wrapper function around norminette"
 		echo "usage:"
@@ -35,9 +34,10 @@ function norminette ()
 			command norminette -h
 		fi
 	}
-	unset OPTIND
-	while getopts ":Gh" NORM_OPT $1; do
-		case ${NORM_OPT} in
+	local unknown_opt=false show_usage=false use_grep=false
+	local norm_opt OPTIND
+	while getopts ":Gh" norm_opt $1; do
+		case ${norm_opt} in
 			h)
 				show_usage=true
 				;;
@@ -60,5 +60,6 @@ function norminette ()
 		command norminette $@ | grep -B1 -E "^Notice|^Error"
 		return ${PIPESTATUS[0]}
 	fi
+	echo "Fallback reached" 1>&2
 	command norminette $@
 }
