@@ -58,7 +58,7 @@ function norminette ()
 	elif [ "${use_grep}" = true ]; then
 		shift
 		command norminette $@ | grep -B1 -E "^Notice|^Error"
-		return
+		return ${PIPESTATUS[0]}
 	fi
 	command norminette $@
 }
