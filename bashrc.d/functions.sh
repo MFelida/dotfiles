@@ -63,3 +63,38 @@ function norminette ()
 	echo "Fallback reached" 1>&2
 	command norminette $@
 }
+
+mf () {
+	cat << EOF > Makefile
+CC = c++
+CFLAGS = -Wall -Wextra -Werror
+CPPFLAGS = -xc++ -std=c++20
+
+NAME = ${1}
+
+SRC_FILES = $(echo *.cpp)
+
+OBJ_FILES = \$(SRC_FILES:.cpp=.o)
+
+.PHONY: all debug clean fclean re
+
+all: \$(NAME)
+
+debug: CFLAGS += -g3 -fsanitize=address -D DEBUG
+debug: re
+
+\$(NAME): \$(OBJ_FILES)
+	\$(CC) \$(CFLAGS) -o \$@ \$^
+
+%.o: %.cpp
+	\$(CC) \$(CFLAGS) \$(CPPFLAGS) -c -o \$@ \$<
+
+clean:
+	@rm -rfv \$(OBJ_FILES)
+
+fclean: clean
+	@rm -rfv \$(NAME)
+
+re: fclean .WAIT all
+EOF
+}
