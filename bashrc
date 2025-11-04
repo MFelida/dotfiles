@@ -51,8 +51,11 @@ unset __conda_setup
 # <<< conda initialize <<<
 }
 # CUDA toolkit PATH
-export PATH="/usr/local/cuda/bin:$PATH"
-export LD_LIBRARY_PATH="/usr/local/cuda/lib64:$LD_LIBRARY_PATH"
+if [ -z ${CUDA_PATH} ]; then
+	export CUDA_PATH="/usr/local/cuda"
+	export PATH="${CUDA_PATH}/bin:$PATH"
+	export LD_LIBRARY_PATH="${CUDA_PATH}/lib64:$LD_LIBRARY_PATH"
+fi
 
 export CC="$(which clang)"
 export CXX="$(which clang++)"
