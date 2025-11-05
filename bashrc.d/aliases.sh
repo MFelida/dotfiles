@@ -4,8 +4,6 @@ alias la="ls -laH --color=auto"
 
 alias t="tmux new-session -A -t main"
 
-alias lappie="ssh -p 612 mfelida@lappie"
-
 alias vnim=nvim
 
 alias lg="lazygit"

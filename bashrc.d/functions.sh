@@ -13,6 +13,11 @@ function help () {
 	fi
 }
 
+function lappie {
+	local TERM=xterm
+	ssh -p 612 mfelida@lappie
+}
+
 function norminette ()
 {
 	if [ -z $1 ]; then
@@ -72,7 +77,7 @@ CPPFLAGS = -xc++ -std=c++20
 
 NAME = ${1}
 
-SRC_FILES = $(echo *.cpp)
+SRC_FILES = $(echo *.cpp *.c)
 
 OBJ_FILES = \$(SRC_FILES:.cpp=.o)
 
