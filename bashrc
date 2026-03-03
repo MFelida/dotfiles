@@ -57,5 +57,7 @@ if [ -z ${CUDA_PATH} ]; then
 	export LD_LIBRARY_PATH="${CUDA_PATH}/lib64:$LD_LIBRARY_PATH"
 fi
 
-export CC="$(which clang)"
-export CXX="$(which clang++)"
+if which clang &> /dev/null; then
+	export CC="$(which clang)"
+	export CXX="$(which clang++)"
+fi

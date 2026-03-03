@@ -1,0 +1,14 @@
+[user]
+	name = Mike Felida
+	email = mike.felida@codam.nl
+
+[core]
+	editor = nvim
+
+[alias]
+	tree = log --oneline --graph --decorate --all
+
+[url "git@github.com:MFelida/"]
+	insteadOf = gh:
+
+[url "https://github.com"]

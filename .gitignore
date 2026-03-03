@@ -1,1 +1,4 @@
 **/*_gig.*
+!/.bashrc.d
+!/.config
+!.gitignore
