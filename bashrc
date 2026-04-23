@@ -16,40 +16,25 @@ export CDPATH=".:$HOME:$HOME/Projects${CDPATH:+:${CDPATH}}"
 # Uncomment the following line if you don't like systemctl's auto-paging feature:
 # export SYSTEMD_PAGER=
 
-if [[ "${TERM}" == *ghostty* ]]; then
-	if [ -n "${GHOSTTY_RESOURCES_DIR}" ]; then
-	builtin source "${GHOSTTY_RESOURCES_DIR}/shell-integration/bash/ghostty.bash";
-	fi
-fi
-
 if [ -z PROMPT_COMMAND ]; then declare -a PROMPT_COMMAND; fi
 
 # User specific aliases and functions
 if [ -d ~/.bashrc.d ]; then
-    for rc in ~/.bashrc.d/*; do
-        if [ -f "$rc" ]; then
-            . "$rc"
-        fi
-    done
+	for rc in ~/.bashrc.d/*; do
+		if [ -f "$rc" ]; then
+			. "$rc"
+		fi
+	done
+	if [ -d ~/.bashrc.d/optional ]; then
+		for rc in ~/.bashrc.d/optional/*; do
+			if [ -f "$rc" ]; then
+				. "$rc"
+			fi
+		done
+	fi
 fi
 unset rc
 
-conda_setup () {
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/usr/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/usr/etc/profile.d/conda.sh" ]; then
-        . "/usr/etc/profile.d/conda.sh"
-    else
-        export PATH="/usr/bin:$PATH"
-    fi
-fi
-unset __conda_setup
-# <<< conda initialize <<<
-}
 # CUDA toolkit PATH
 if [ -z ${CUDA_PATH} ]; then
 	export CUDA_PATH="/usr/local/cuda"
@@ -60,4 +45,11 @@ fi
 if which clang &> /dev/null; then
 	export CC="$(which clang)"
 	export CXX="$(which clang++)"
+# Apply local settings and overrides
+if [ -d ~/.bashrc.d/overrides/ ]; then
+	for rc in ~/.bashrc.d/overrides/*; do
+		if [ -f "$rc" ]; then
+			. "$rc"
+		fi
+	done
 fi

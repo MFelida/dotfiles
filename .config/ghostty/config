@@ -8,6 +8,7 @@ mouse-hide-while-typing = true
 keybind = ctrl+a>c=new_tab
 keybind = ctrl+a>x=close_tab
 keybind = ctrl+a>n=next_tab
+keybind = ctrl+a>ctrl+a=text:\x01
 
 keybind = ctrl+a>shift+|=new_split:right
 keybind = ctrl+a>-=new_split:down

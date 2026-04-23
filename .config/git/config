@@ -12,3 +12,5 @@
 	insteadOf = gh:
 
 [url "https://github.com"]
+[init]
+	defaultBranch = "main"

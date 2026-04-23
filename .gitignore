@@ -2,3 +2,4 @@
 !/.bashrc.d
 !/.config
 !.gitignore
+/bashrc.d/optional

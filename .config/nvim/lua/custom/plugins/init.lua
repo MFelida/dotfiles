@@ -16,6 +16,16 @@ return {
   --     require('codamheader').setup(opts)
   --   end,
   -- },
+  -- install with yarn or npm
+  {
+    'iamcco/markdown-preview.nvim',
+    cmd = { 'MarkdownPreviewToggle', 'MarkdownPreview', 'MarkdownPreviewStop' },
+    build = 'cd app && npm install',
+    init = function()
+      vim.g.mkdp_filetypes = { 'markdown' }
+    end,
+    ft = { 'markdown' },
+  },
   {
     'https://github.com/42Paris/42header',
     cmd = 'Stdheader',
@@ -62,9 +72,9 @@ return {
         hide_during_completion = true,
         debounce = 75,
         keymap = {
-          accept = '<C-g>', -- Ctrl+g to accept entire suggestion (NOT Tab!)
-          accept_word = '<C-f>', -- Ctrl+f to accept word
-          accept_line = '<C-l>', -- Ctrl+l to accept line (only in insert mode, no conflict!)
+          accept = '<C-g>', -- Ctrl+g to accept entire suggestion
+          accept_word = '<C-F>', -- Ctrl+f to accept word
+          accept_line = '<C-L>', -- Ctrl+l to accept line (only in insert mode, no conflict!)
           next = '<M-]>',
           prev = '<M-[>',
           dismiss = '<C-]>',

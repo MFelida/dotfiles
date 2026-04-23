@@ -1,1 +1,0 @@
-/home/mfelida/.dotfiles/bashrc.d

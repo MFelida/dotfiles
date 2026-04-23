@@ -156,11 +156,20 @@ vim.o.tabstop = 4
 vim.o.shiftwidth = 0
 
 vim.api.nvim_create_autocmd('FileType', {
-  pattern = { 'lua', 'javascript', 'typescript', 'json', 'html', 'css', 'cpp' },
+  pattern = { 'lua', 'javascript', 'typescript', 'json', 'html', 'css', 'cpp', 'cmake' },
   callback = function()
     vim.opt_local.tabstop = 2
     vim.opt_local.shiftwidth = 2
     vim.opt_local.expandtab = true
+  end,
+})
+
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = { 'c', 'h', 'make' },
+  callback = function()
+    vim.opt_local.tabstop = 4
+    vim.opt_local.shiftwidth = 4
+    vim.opt_local.expandtab = false
   end,
 })
 
