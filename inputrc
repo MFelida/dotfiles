@@ -1,0 +1,17 @@
+# File changes the default setting for GNU readline.
+# For now only used for bash
+
+$include /etc/inputrc
+
+
+$if Bash
+
+	"\C-TAB" complete-menu
+
+	set bell-style visible
+	set blink-matching-paren on
+
+	set completion-ignore-case on
+	set completion-map-case on
+
+$endif
